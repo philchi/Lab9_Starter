@@ -87,6 +87,13 @@
     </section>
   </main>
 
+  <script src="https://cdn.trackjs.com/agent/v3/latest/t.js"></script>
+  <script>
+    window.TrackJS && TrackJS.install({ 
+      token: "e41fe6d9cd3b45278546394e79b0099c"
+      // for more configuration options, see https://docs.trackjs.com
+    });
+  </script>
   <script>
     let form = document.querySelector('form');
     form.addEventListener('submit', e => {
@@ -95,13 +102,113 @@
       let firstNum = document.querySelector('#first-num').value;
       let secondNum = document.querySelector('#second-num').value;
       let operator = document.querySelector('#operator').value;
-      output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      try {
+        output.innerHTML = eval(`${firstNum} ${operator} ${secondNum}`);
+      } catch(error) {
+        console.log('what are you doing?')
+      } finally {
+        throw new CalcError('check it again');
+      }
     });
 
     let errorBtns = Array.from(document.querySelectorAll('#error-btns > button'));
 
     // Start your code here
     // You may move this JS to another file if you wish
+    const logBut = errorBtns[0];
+    logBut.addEventListener('click', e => {
+      console.log('console log demo');
+    })
+
+    const errBut = errorBtns[1];
+    errBut.addEventListener('click', e => {
+      console.error('console error demo');
+    })
+
+    const countBut = errorBtns[2];
+    countBut.addEventListener('click', e => {
+      console.count('count button');
+    })
+
+    const warnBut = errorBtns[3];
+    warnBut.addEventListener('click', e => {
+      console.warn('warn button');
+    })
+
+    const assertBut = errorBtns[4];
+    assertBut.addEventListener('click', e => {
+      console.assert(false, 'assert button');
+    })
+
+    const clrBut = errorBtns[5];
+    clrBut.addEventListener('click', e => {
+      console.clear();
+    })
+
+    const dirBut = errorBtns[6];
+    dirBut.addEventListener('click', e => {
+      console.dir(dirBut);
+    })
+
+    const dirxmlBut = errorBtns[7];
+    dirxmlBut.addEventListener('click', e => {
+      console.dirxml(dirxmlBut);
+    })
+
+    const grpstrtBut = errorBtns[8];
+    grpstrtBut.addEventListener('click', e => {
+      console.group('group button');
+    })
+
+    const grpendBut = errorBtns[9];
+    grpendBut.addEventListener('click', e => {
+      console.groupEnd();
+    })
+
+    const tblBut = errorBtns[10];
+    tblBut.addEventListener('click', e => {
+      console.table(['table button', 'wow']);
+    })
+
+    const timeBut = errorBtns[11];
+    timeBut.addEventListener('click', e => {
+      console.time('timer');
+    })
+
+    const tEndBut = errorBtns[12];
+    tEndBut.addEventListener('click', e => {
+      console.timeEnd('timer');
+    })
+
+    const traceBut = errorBtns[13];
+    traceBut.addEventListener('click', e => {
+      console.trace(traceBut);
+    })
+
+    const gErrorBut = errorBtns[14];
+    gErrorBut.addEventListener('click', e => {
+      try {
+        uhoh;
+      } catch(error) {
+        console.log('oops a global error was caught')
+      }
+    })
+
+    class CalcError extends Error {
+      constructor(message) {
+        super(message);
+        this.name = "CalcError";
+      }
+    }
+
+    try {
+      throw new TypeError('I dont think this is right')
+    } catch(error) {
+      console.error(error);
+    } finally {
+      console.log('its joever');
+    }
+
   </script>
 </body>
 
